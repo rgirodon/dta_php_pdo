@@ -14,9 +14,11 @@ $id = $_GET["id"];
 
 $order = 'SELECT employeeNumber, firstName, lastName, jobTitle'
             .' FROM employees'
-            .' WHERE employeeNumber = '.$id;
+            .' WHERE employeeNumber = :id';
 
-$req = $bdd->query($order);
+$req = $bdd->prepare($order);
+
+$req->execute(["id" => $id]);
 
 $data = $req->fetchAll();
 
